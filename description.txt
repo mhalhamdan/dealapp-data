@@ -57,3 +57,13 @@
 #29 id: same as _id for listing : string
 
 #30 regaRawData: flag for raw data? : bool
+
+#31 rentType: specify type like annual or monthly : string
+
+
+Columns that are inconsistent (optional?):
+1. title: 7811
+2. area: 6167
+3. paymentMethod: 7896
+4. developerAgent: 7
+5. rentType: 793

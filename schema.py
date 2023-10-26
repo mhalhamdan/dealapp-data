@@ -43,6 +43,9 @@ LISTING_TABLE_SCHEMA = [
     "price REAL",
     "priceType TEXT",
     "area REAL",
+    "rentType TEXT",
+    "relatedQuestions TEXT",
+    "developerAgent TEXT",
     "createdBy TEXT",
     "advertiser TEXT",
     "status TEXT",
@@ -86,6 +89,7 @@ LISTING_COLUMNS = [
     "createdAt",
     "updatedAt",
     "userReportedThisAd",
+    "relatedQuestions",
     "read",
     "accept",
     "reject",
@@ -93,7 +97,24 @@ LISTING_COLUMNS = [
     "regaRawData",
 ]
 
-COLUMNS_THAT_EXPAND = [
+ALL_RAW_COLUMNS_TO_PARSE = [
+    "_id",
+    "purpose",
+    "price",
+    "priceType",
+    "area",
+    "status",
+    "published",
+    "paymentMethod",
+    "code",
+    "createdAt",
+    "updatedAt",
+    "userReportedThisAd",
+    "read",
+    "accept",
+    "reject",
+    "favorite",
+    "regaRawData",
     "propertyType",
     "city",
     "district",
@@ -103,10 +124,4 @@ COLUMNS_THAT_EXPAND = [
     "promotion",
     "refreshed",
     "notificationMethods"
-]
-
-COLUMNS_TO_IGNORE = [
-    "media",
-    "id",
-    "developerAgent"
 ]
