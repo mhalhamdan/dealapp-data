@@ -1,0 +1,59 @@
+#1 _id: Primary key id for an ad listing : string
+
+#2 title: Title of listing : string
+
+#3 propertyType: Includes information about property Type and more : dict
+
+#4 purpose: Purpose of listing SALE or RENT, etc. : string
+
+#5 price: Price in riyals : double
+
+#6 priceType: Type of price : string
+
+#7 area: Area in square meters? : double
+
+#8 city: City of listing contains name and id of city : dict
+
+#9 district: District of listing contains name and id of district : dict
+
+#10 media: Contains Url for picture of listing : dict
+
+#11 relatedQuestions: Contains information about listing rooms, bathrooms, garage, etc. : dict
+
+#12 notificationMethods: Methods to inquire about the listing (phone, etc) : list
+
+#13 createdBy: User that created the  listing including their information : dict
+
+#14 advertiser: Information about who is advertising : dict 
+
+#15 status: The status of the listing : string
+
+#16 promotion: Information about interactions with the listing : dict
+
+#17 published: Flag whether listing is published : bool
+
+#18 refreshed: Last time listing was refreshed : dict w/datetime
+
+#19 paymentMethod: Payment for listing : string
+
+#20 code: Code for listing ? : int
+
+#21 createdAt: Time when listing was created : datetime
+
+#22 updatedAt: Time when listing was last updated : datetime
+
+#23 developerAgent: Information about the dev agent : dict
+
+#24 userReportedThisAd: Flag to check if a user reported a listing : bool
+
+#25 read: flag for read? : bool
+
+#26 accept: flag for accept? : bool
+
+#27 reject: flag for reject? : bool
+
+#28 favorite: flag for favorite? : bool
+
+#29 id: same as _id for listing : string
+
+#30 regaRawData: flag for raw data? : bool
