@@ -4,22 +4,10 @@ CITY_TABLE_SCHEMA = [
     "cityNameAr TEXT",
 ]
 
-CITY_COLUMNS = [
-    "cityId",
-    "cityNameEn",
-    "cityNameAr"
-]
-
 CATEGORY_TABLE_SCHEMA = [
     "categoryId TEXT PRIMARY KEY",
     "categoryNameEn TEXT",
     "categoryNameAr TEXT",
-]
-
-CATEGORY_COLUMNS = [
-    "categoryId",
-    "categoryNameEn",
-    "categoryNameAr"
 ]
 
 PROPERTY_TABLE_SCHEMA = [
@@ -28,17 +16,20 @@ PROPERTY_TABLE_SCHEMA = [
     "propertyTypeNameAr TEXT",
 ]
 
-PROPERTY_COLUMNS = [
-    "propertyTypeId",
-    "propertyTypeNameEn",
-    "propertyTypeNameAr"
-]
-
 LISTING_TABLE_SCHEMA = [
     "listingId TEXT PRIMARY KEY",
     "cityId TEXT",
+    "cityNameEn TEXT",
+    "cityNameAr TEXT",
     "categoryId TEXT",
+    "categoryNameEn TEXT",
+    "categoryNameAr TEXT",
     "propertyTypeId TEXT",
+    "propertyTypeNameEn TEXT",
+    "propertyTypeNameAr TEXT",
+    "districtId TEXT",
+    "districtNameEn TEXT",
+    "districtNameAr TEXT",
     "purpose TEXT",
     "price REAL",
     "priceType TEXT",
@@ -71,8 +62,17 @@ LISTING_TABLE_SCHEMA = [
 LISTING_COLUMNS = [
     "listingId",
     "cityId",
+    "cityNameEn",
+    "cityNameAr",
     "categoryId",
+    "categoryNameEn",
+    "categoryNameAr",
     "propertyTypeId",
+    "propertyTypeNameEn",
+    "propertyTypeNameAr",
+    "districtId",
+    "districtNameEn",
+    "districtNameAr",
     "purpose",
     "price",
     "priceType",

@@ -4,7 +4,7 @@ from collections import defaultdict
 import requests
 import pandas as pd
 from credentials import TOKEN
-from schema import CITY_COLUMNS, LISTING_COLUMNS, CATEGORY_COLUMNS, PROPERTY_COLUMNS, ALL_RAW_COLUMNS_TO_PARSE
+from schema import LISTING_COLUMNS, ALL_RAW_COLUMNS_TO_PARSE
 from sqlite_connector import SqliteClient
 
 logging.getLogger().setLevel(logging.INFO)
@@ -59,7 +59,7 @@ def get_data_rate_limited():
 
         time.sleep(1)
 
-        if page > 5:
+        if page > 3:
             break
 
         page += 1
@@ -159,13 +159,16 @@ def main():
     data, _ = get_data_rate_limited()
     data_df = parse_response_to_df(data)
 
-    df_to_sql_table(data_df.copy(), "city", CITY_COLUMNS)
-
-    df_to_sql_table(data_df.copy(), "category", CATEGORY_COLUMNS)
-
-    df_to_sql_table(data_df.copy(), "propertyType", PROPERTY_COLUMNS)
-
     df_to_sql_table(data_df.copy(), "listing", LISTING_COLUMNS)
+
+    sqlite_client.insert_lookup_table("city")
+
+    sqlite_client.insert_lookup_table("category")
+
+    sqlite_client.insert_lookup_table("propertyType")
+
+    # Close sqlite connection
+    sqlite_client.con.close()
 
 
 if __name__ == "__main__":
