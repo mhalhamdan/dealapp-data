@@ -48,10 +48,10 @@ The blocks in the chart correspond to Airflow tasks in `pipeline.py`. The pipeli
 
 For the lookup tables, the insertion logic is fairly simple:
 ```sql
-    INSERT INTO city (cityId, cityNameEn, cityNameAr) 
-    SELECT DISTINCT (cityId, cityNameEn, cityNameAr)
+    INSERT INTO city ("cityId", "cityNameEn", "cityNameAr") 
+    SELECT DISTINCT ("cityId", "cityNameEn", "cityNameAr")
     FROM listingtemptable
-    ON CONFLICT (cityId) 
+    ON CONFLICT ("cityId") 
     DO NOTHING;
 ```
 So we only insert if a row is new to the lookup table.
@@ -61,10 +61,10 @@ For the main listing table the logic is similar but with an extra step
     INSERT INTO listing (...)
     SELECT * FROM listingtemptable
     FROM listingtemptable
-    ON CONFLICT (listingId) 
+    ON CONFLICT ("listingId") 
     DO UPDATE
     ...
-    WHERE listing.refreshedAt <> EXCLUDED.refreshedAt
+    WHERE listing."refreshedAt" <> EXCLUDED."refreshedAt"
 ```
 So here we are only updating a row that exists already if the refreshedAt rate does not match, meaning the listing was refreshed and needs to be updated.
 
