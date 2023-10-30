@@ -5,7 +5,8 @@ For quant assessment.
 In this file I will go over the highlights regarding the assessment and my approach to arriving at the solution. It has been fun going through Airflow the past few days and I learned a lot about it.
 
 ### How to use
-Place the dags folder in yuor own Airflow home directory to be able to access it. As for setting up Airflow this is a good reference [https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)
+1. Place the dags folder in yuor own Airflow home directory to be able to access it. As for setting up Airflow this is a good reference [https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)
+2. You need to have a config.yaml file similar to the example_config.yaml provided.
 
 ## Discovery
 First I explored the website [https://dealapp.sa/](https://dealapp.sa/), turned on inspect element and checked the Network tab to see what calls were being made in the main page. I soon found the main [API "https://api.dealapp.sa/production/ad"]("https://api.dealapp.sa/production/ad") which was using a bearer token for authorization. And to my luck it seems that the token does not expire. 
@@ -73,7 +74,7 @@ NOTICE: I did not change the default Sqlite metadata DB for Airflow. In a produc
 
 For the purposes of this assessment, in the firewall rules I have enabled public access so that the team can review the database. In a production environment I would restrict the access to a few IP addresses. I also enabled SQL login with credentials, but a better way of managing DB access would be through an identity provider which Azure provides, so that we can manage the roles and access of persons in regards to sensitive data.
 
-For secrets management, I would use Azure Key Vault and inject them at deployment in a production environment. 
+For secrets management, I would use Azure Key Vault and inject them at deployment in a production environment instead of only keeping the current config.yaml file. 
 
 ### SQL Injection
 Used pandas to_sql() [https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html) to insert rows into a temporary table for ease of formatting and to prevent sql injection (I have tested this). 
