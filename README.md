@@ -36,7 +36,36 @@ For this assessment, I have used the following tech stack:
 - Requests & Pandas (Python): To retrieve results from the API and manipulate the data.
 
 ## Architecture
-[ Add illustration here]
+![DB diagram](https://github.com/mhalhamdan/dealapp-data/assets/48159946/207527d0-444a-461a-b9bc-0a5ab6d573cf)
+
+There are in total 4 tables in the database. The listing table contains all of the ads and relevant information. The other 3 are lookup tables for their respective ids and information. I also created 3 indices on all 3 columns in the listing table. I did not include all the columns in this diagram because it would take a lot of space, but you could check it in `schema.py`.
+
+![Airflow design](https://github.com/mhalhamdan/dealapp-data/assets/48159946/1de7a73f-d1b1-49d3-b9b1-c37eac07b440)
+
+The blocks in the chart correspond to Airflow tasks in `pipeline.py`. The pipeline starts by creating the necessary tables using the schema defined in `schema.py`. Afterwards we start the data collection step by running a python script that uses the requests library to call the API and add data to a list that will later be parsed in the next step. In the parsing step I rename mutliple columns to fit into the schema, and also handle certain datatypes such as dictionary which needs to be serialized into json strings. In the same parsing step the data is inserted into a listingtemp table that will be used by the next steps to insert rows based whether the data is new. 
+
+For the lookup tables, the insertion logic is fairly simple:
+```sql
+    INSERT INTO city (cityId, cityNameEn, cityNameAr) 
+    SELECT DISTINCT (cityId, cityNameEn, cityNameAr)
+    FROM listingtemptable
+    ON CONFLICT (cityId) 
+    DO NOTHING;
+```
+So we only insert if a row is new to the lookup table.
+
+For the main listing table the logic is similar but with an extra step
+```sql
+    INSERT INTO listing (...)
+    SELECT * FROM listingtemptable
+    FROM listingtemptable
+    ON CONFLICT (listingId) 
+    DO UPDATE
+    ...
+    WHERE listing.refreshedAt <> EXCLUDED.refreshedAt
+```
+So here we are only updating a row that exists already if the refreshedAt rate does not match, meaning the listing was refreshed and needs to be updated.
+
 NOTICE: I did not change the default Sqlite metadata DB for Airflow. In a production environment it would make sense to switch it out because Sqlite is intended for development only as highlighted in: [https://airflow.apache.org/docs/apache-airflow/stable/howto/set-up-database.html](https://airflow.apache.org/docs/apache-airflow/stable/howto/set-up-database.html)
 
 ## Security
