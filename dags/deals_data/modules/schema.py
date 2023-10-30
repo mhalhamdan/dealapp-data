@@ -1,42 +1,43 @@
 CITY_TABLE_SCHEMA = [
-    "cityId TEXT PRIMARY KEY",
+    "cityId VARCHAR(50) PRIMARY KEY",
     "cityNameEn TEXT",
     "cityNameAr TEXT",
 ]
 
 CATEGORY_TABLE_SCHEMA = [
-    "categoryId TEXT PRIMARY KEY",
+    "categoryId VARCHAR(50) PRIMARY KEY",
     "categoryNameEn TEXT",
     "categoryNameAr TEXT",
 ]
 
 PROPERTY_TABLE_SCHEMA = [
-    "propertyTypeId TEXT PRIMARY KEY",
+    "propertyTypeId VARCHAR(50) PRIMARY KEY",
     "propertyTypeNameEn TEXT",
     "propertyTypeNameAr TEXT",
 ]
 
 LISTING_TABLE_SCHEMA = [
-    "listingId TEXT PRIMARY KEY",
-    "cityId TEXT",
+    "listingId VARCHAR(50) PRIMARY KEY",
+    "cityId VARCHAR(50)",
     "cityNameEn TEXT",
     "cityNameAr TEXT",
-    "categoryId TEXT",
+    "categoryId VARCHAR(50)",
     "categoryNameEn TEXT",
     "categoryNameAr TEXT",
-    "propertyTypeId TEXT",
+    "propertyTypeId VARCHAR(50)",
     "propertyTypeNameEn TEXT",
     "propertyTypeNameAr TEXT",
-    "districtId TEXT",
+    "districtId VARCHAR(50)",
     "districtNameEn TEXT",
     "districtNameAr TEXT",
     "purpose TEXT",
     "price REAL",
     "priceType TEXT",
-    "area REAL",
-    "rentType TEXT",
+    "area REAL NULL",
+    "title VARCHAR NULL",
+    "rentType VARCHAR NULL",
     "relatedQuestions TEXT",
-    "developerAgent TEXT",
+    "developerAgent VARCHAR NULL",
     "createdBy TEXT",
     "advertiser TEXT",
     "status TEXT",
@@ -45,19 +46,23 @@ LISTING_TABLE_SCHEMA = [
     "published TEXT",
     "refreshedAt TEXT",
     "paymentMethod TEXT",
-    "code TEXT",
+    "code INTEGER",
     "createdAt TEXT",
     "updatedAt TEXT",
     "userReportedThisAd TEXT",
-    "read TEXT",
+    "readFlag TEXT",
     "accept TEXT",
     "reject TEXT",
     "favorite TEXT",
     "regaRawData TEXT",
-    "FOREIGN KEY(cityId) REFERENCES city(id)",
-    "FOREIGN KEY(categoryId) REFERENCES category(id)",
-    "FOREIGN KEY(propertyTypeId) REFERENCES property_type(id)"
 ]
+
+FOREIGN_KEY_CONSTRAINTS = [
+    "CONSTRAINT FK_cityId FOREIGN KEY(\"cityId\") REFERENCES city(\"cityId\")",
+    "CONSTRAINT FK_categoryId FOREIGN KEY(\"categoryId\") REFERENCES category(\"categoryId\")",
+    "CONSTRAINT FK_propertyTypeId FOREIGN KEY(\"propertyTypeId\") REFERENCES propertyType(\"propertyTypeId\")"
+]
+
 
 LISTING_COLUMNS = [
     "listingId",
@@ -77,6 +82,10 @@ LISTING_COLUMNS = [
     "price",
     "priceType",
     "area",
+    "title",
+    "rentType",
+    "relatedQuestions",
+    "developerAgent",
     "createdBy",
     "advertiser",
     "status",
@@ -89,8 +98,7 @@ LISTING_COLUMNS = [
     "createdAt",
     "updatedAt",
     "userReportedThisAd",
-    "relatedQuestions",
-    "read",
+    "readFlag",
     "accept",
     "reject",
     "favorite",
@@ -103,6 +111,9 @@ ALL_RAW_COLUMNS_TO_PARSE = [
     "price",
     "priceType",
     "area",
+    "title",
+    "developerAgent",
+    "rentType",
     "status",
     "published",
     "paymentMethod",

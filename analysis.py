@@ -1,5 +1,5 @@
 import logging
-from data_collector import get_data_rate_limited
+from dags.deals_data.modules.collect_data import get_data_rate_limited
 from collections import Counter
 
 """analysis.py
@@ -8,7 +8,7 @@ This script checks what are the keys from the data and how many times they appea
 
 def main():
 
-    response, total = get_data_rate_limited()
+    response = get_data_rate_limited()
     
     counter = Counter()
 
@@ -16,10 +16,12 @@ def main():
         # Count keys in data
         counter.update(data.keys())
 
-    # Log all keys below limit
+    # Log all keys below max
     idx = 0
+    max_val = max(counter.values())
+
     for key, value in counter.items():
-        if value < total:
+        if value < max_val:
             idx += 1
             logging.info(f"{idx}. {key}: {value}")
 
@@ -28,6 +30,3 @@ def main():
 
 if __name__  == "__main__":
     main()
-
-
-    

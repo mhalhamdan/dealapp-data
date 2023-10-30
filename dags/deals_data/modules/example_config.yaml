@@ -1,0 +1,5 @@
+TOKEN: PLACEHOLDER
+SQL_USERNAME: mah
+SQL_PASSWORD: PLACEHOLDER
+SQL_HOST: sqlserver-testing-b.postgres.database.azure.com
+SQL_DB: dev
