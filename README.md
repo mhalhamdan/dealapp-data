@@ -2,9 +2,7 @@
 For quant assessment.
 
 ## Introduction
-I tried to approach this assessment initially with a minimal approach, using only the built-in sqlite3 python library, so that anyone cloning the repo can easily reproduce the results. However, after learning a bit more about Airflow as a framework I realized that it works best connecting with remote databases, since it is intended to be an orchestrator first and foremost. 
-
-Saying that, I believe my solution still does not use Airflow in the best way possible. Because it still performs a lot of computations in PythonOperator (to collect and transform the data). A better solution would move this logic to a different location and have Airflow trigger the workflow responsible for dealing with the data directly.
+In this file I will go over the highlights regarding the assessment and my approach to arriving at the solution. It has been fun going through Airflow the past few days and I learned a lot about it.
 
 ## Discovery
 First I explored the website [https://dealapp.sa/](https://dealapp.sa/), turned on inspect element and checked the Network tab to see what calls were being made in the main page. I soon found the main [API "https://api.dealapp.sa/production/ad"]("https://api.dealapp.sa/production/ad") which was using a bearer token for authorization. And to my luck it seems that the token does not expire. 
@@ -96,4 +94,11 @@ which means it will run 12:00 AM == 00:00 UTC daily.
 - I rarely ever write raw SQL queries, I usually use an ORM to manage that for me. But for this assessment I really wanted to try the SQLExecuteQueryOperator which takes in sql statements. I still think it is better to use ORMs for better consistency and less time worrying about single and double quotes everywhere.
   
 - After my initial solution with Sqlite, I tried using Microsoft SQL Server and writing raw sql queries. It was a very unpleasant experience dealing with TRANSACT-SQL for the first and last time hopefully. Switched to Postgres in the end because I was more familiar with it.
+
+## Final thoughts
+I tried to approach this assessment initially with a minimal approach, using only the built-in sqlite3 python library, so that anyone cloning the repo can easily reproduce the results. However, after learning a bit more about Airflow as a framework I realized that it works best connecting with remote databases, since it is intended to be an orchestrator first and foremost. 
+
+Saying that, I believe my solution still does not use Airflow in the best way possible. Because it still performs a lot of computations in PythonOperator (to collect and transform the data). A better solution would move this logic to a different location and have Airflow trigger the workflow responsible for dealing with the data directly.
+
+I am thinking of something like an Azure queue where Airflow would retrain an ID that it will then use to continue probing and checking the progress of the job. Although this makes keeping logs a bit more complicated but it is worth it to decouple away from keeping all the business logic in Airflow.
 
