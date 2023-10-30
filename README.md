@@ -7,6 +7,7 @@ In this file I will go over the highlights regarding the assessment and my appro
 ### How to use
 1. Place the dags folder in yuor own Airflow home directory to be able to access it. As for setting up Airflow this is a good reference [https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)
 2. You need to have a config.yaml file similar to the example_config.yaml provided.
+3. Using the Airflow UI, create a connection with the Postgres DB.
 
 ## Discovery
 First I explored the website [https://dealapp.sa/](https://dealapp.sa/), turned on inspect element and checked the Network tab to see what calls were being made in the main page. I soon found the main [API "https://api.dealapp.sa/production/ad"]("https://api.dealapp.sa/production/ad") which was using a bearer token for authorization. And to my luck it seems that the token does not expire. 
