@@ -39,11 +39,12 @@ For this assessment, I have used the following tech stack:
 - Requests & Pandas (Python): To retrieve results from the API and manipulate the data.
 
 ## Architecture
-![DB diagram](https://github.com/mhalhamdan/dealapp-data/assets/48159946/207527d0-444a-461a-b9bc-0a5ab6d573cf)
+
+![database diagram](https://github.com/mhalhamdan/dealapp-data/assets/48159946/67311a17-ba96-4987-88fd-3ecb2a1ec754)
 
 There are in total 4 tables in the database. The listing table contains all of the ads and relevant information. The other 3 are lookup tables for their respective ids and information. I also created 3 indices on all 3 columns in the listing table. I did not include all the columns in this diagram because it would take a lot of space, but you could check it in `schema.py`.
 
-![Airflow design](https://github.com/mhalhamdan/dealapp-data/assets/48159946/1de7a73f-d1b1-49d3-b9b1-c37eac07b440)
+![airflow design](https://github.com/mhalhamdan/dealapp-data/assets/48159946/085a4fce-541e-4e76-af40-ac0f860d2eab)
 
 The blocks in the chart correspond to Airflow tasks in `pipeline.py`. The pipeline starts by creating the necessary tables using the schema defined in `schema.py`. Afterwards we start the data collection step by running a python script that uses the requests library to call the API and add data to a list that will later be parsed in the next step. In the parsing step I rename mutliple columns to fit into the schema, and also handle certain datatypes such as dictionary which needs to be serialized into json strings. In the same parsing step the data is inserted into a listingtemp table that will be used by the next steps to insert rows based whether the data is new. 
 
